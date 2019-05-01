@@ -1,6 +1,6 @@
-C:\Users\s2862\AppData\Local\Temp\VMBuilds\Car\uno\Release\Car.cpp.o: \
- C:\Users\s2862\AppData\Local\Temp\VMBuilds\Car\uno\Release\Car.cpp \
- C:\Users\s2862\Desktop\arduino-1.8.8\hardware\arduino\avr\cores\arduino/arduino.h \
+C:\Users\s2862\AppData\Local\Temp\VMBuilds\Car\uno\Release\SoftwareSerial\SoftwareSerial.cpp.o: \
+ C:\Users\s2862\Desktop\arduino-1.8.8\hardware\arduino\avr\libraries\SoftwareSerial\src\SoftwareSerial.cpp \
+ C:\Users\s2862\Desktop\arduino-1.8.8\hardware\arduino\avr\cores\arduino/Arduino.h \
  C:\Users\s2862\Desktop\arduino-1.8.8\hardware\arduino\avr\cores\arduino/binary.h \
  C:\Users\s2862\Desktop\arduino-1.8.8\hardware\arduino\avr\cores\arduino/WCharacter.h \
  C:\Users\s2862\Desktop\arduino-1.8.8\hardware\arduino\avr\cores\arduino/WString.h \
@@ -11,10 +11,5 @@ C:\Users\s2862\AppData\Local\Temp\VMBuilds\Car\uno\Release\Car.cpp.o: \
  C:\Users\s2862\Desktop\arduino-1.8.8\hardware\arduino\avr\cores\arduino/USBAPI.h \
  C:\Users\s2862\Desktop\arduino-1.8.8\hardware\arduino\avr\cores\arduino/Arduino.h \
  C:\Users\s2862\Desktop\arduino-1.8.8\hardware\arduino\avr\variants\standard/pins_arduino.h \
- C:\Users\s2862\AppData\Local\Temp\VMBuilds\Car\uno\Release\L298N.h \
- C:\Users\s2862\Desktop\arduino-1.8.8\hardware\arduino\avr\cores\arduino/Arduino.h \
- C:\Users\s2862\AppData\Local\Temp\VMBuilds\Car\uno\Release\SR04.h \
- C:\Users\s2862\Desktop\arduino-1.8.8\libraries\Servo\src/servo.h \
- C:\Users\s2862\Desktop\arduino-1.8.8\libraries\Servo\src/avr/ServoTimers.h \
  C:\Users\s2862\Desktop\arduino-1.8.8\hardware\arduino\avr\libraries\SoftwareSerial\src/SoftwareSerial.h \
  C:\Users\s2862\Desktop\arduino-1.8.8\hardware\arduino\avr\cores\arduino/Stream.h
