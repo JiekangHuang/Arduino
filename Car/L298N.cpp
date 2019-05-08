@@ -43,15 +43,15 @@ void L298N::Backward()
 
 void L298N::T_left()
 {
-	ea = ib = true;
-	ia = eb = false;
+	ea = ib = false;
+	ia = eb = true;
 	Updata();
 }
 
 void L298N::T_right()
 {
-	ea = ib = false;
-	ia = eb = true;
+	ea = ib = true;
+	ia = eb = false;
 	Updata();
 }
 
@@ -69,6 +69,22 @@ void L298N::Updata()
 	digitalWrite(IA, ia);
 	digitalWrite(EB, eb);
 	digitalWrite(IB, ib);
+}
+
+void L298N::L_stop()
+{
+	ea = false;
+	ia = true;
+	eb = ib = false;
+	Updata();
+}
+
+void L298N::R_stop()
+{
+	eb = false;
+	ib = true;
+	ea = ia = false;
+	Updata();
 }
 
 void L298N::set_speed(byte speed)
