@@ -43,10 +43,10 @@ void loop()
 	Serial.print(" , ");
 	Serial.println(R);
 
-	if (L&M&R)
+	if (L & M & R)
 	{
 		bool i = false;
-		while ((L&M&R))
+		while ((L & M & R))
 		{
 			if (!i)
 			{
@@ -63,7 +63,7 @@ void loop()
 	if (M)
 	{
 		(!L) ? act.L_stop() : act.R_stop();
-		//delay(30);
+		delay(30);
 		act.Forward();
 	}
 	else
