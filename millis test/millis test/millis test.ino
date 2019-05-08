@@ -47,7 +47,7 @@ bool SW(int pin)
 		unsigned long now_time = millis();
 		do
 		{
-			if (millis() - now_time >= 50)
+			if (millis() - now_time >= 100)
 				return false;
 			delay(20);
 			sw = digitalRead(pin);
