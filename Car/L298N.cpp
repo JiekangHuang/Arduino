@@ -57,7 +57,7 @@ void L298N::T_right()
 
 void L298N::stop()
 {
-	ea = eb = ia = ib = false;
+	ea = eb = ia = ib = true;
 	Updata();
 }
 

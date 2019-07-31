@@ -33,41 +33,49 @@ void setup()
 
 void loop()
 {
-	bool L, M, R;
-	L = digitalRead(A4);
-	M = digitalRead(A3);
-	R = digitalRead(A2);
-	Serial.print(L);
-	Serial.print(" , ");
-	Serial.print(M);
-	Serial.print(" , ");
-	Serial.println(R);
-
-	if (L & M & R)
-	{
-		bool i = false;
-		while ((L & M & R))
-		{
-			if (!i)
-			{
-				act.stop();
-				i = true;
-			}
-			L = digitalRead(A4);
-			M = digitalRead(A3);
-			R = digitalRead(A2);
-			Serial.println("stop");
-			Run_BT();
-		}
-	}
-	if (M)
-	{
-		(!L) ? act.L_stop() : act.R_stop();
-		delay(30);
-		act.Forward();
-	}
-	else
-		act.Forward();
+	act.Forward();
+	delay(3000);
+	act.Backward();
+	delay(100);
+	act.stop();
+	delay(3000);
+	//bool L, M, R;
+	//L = digitalRead(A4);
+	//M = digitalRead(A3);
+	//R = digitalRead(A2);
+	//{
+	//	Serial.print(L);
+	//	Serial.print(" , ");
+	//	Serial.print(M);
+	//	Serial.print(" , ");
+	//	Serial.println(R);
+	//}
+	//
+	//if (L & M & R)
+	//{
+	//	bool i = false;
+	//	while ((L & M & R))
+	//	{
+	//		if (!i)
+	//		{
+	//			act.stop();
+	//			i = true;
+	//		}
+	//		L = digitalRead(A4);
+	//		M = digitalRead(A3);
+	//		R = digitalRead(A2);
+	//		Serial.println("stop");
+	//		Run_BT();
+	//	}
+	//}
+	//if (M)
+	//{
+	//	(!L) ? act.L_stop() : act.R_stop();
+	//	delay(30);
+	//	act.Forward();
+	//}
+	//else
+	//	act.Forward();
 }
 void Run_dodge()
 {

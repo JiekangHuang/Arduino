@@ -33,7 +33,10 @@ void loop()
 		i += val;
 	}
 	if (SW(sw_pin))
+	{
 		val = -val;
+		i += val * 2;
+	}
 
 	i > 9 ? i = 0 : NULL;
 	i < 0 ? i = 9 : NULL;
