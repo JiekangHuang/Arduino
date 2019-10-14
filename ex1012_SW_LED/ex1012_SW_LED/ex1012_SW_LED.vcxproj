@@ -12,8 +12,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C5F80730-F44F-4478-BDAE-6634EFC2CA88}</ProjectGuid>
-    <RootNamespace>ex0928_LED_2</RootNamespace>
-    <ProjectName>ex0928_LED_2</ProjectName>
+    <RootNamespace>ex1012_SW_LED</RootNamespace>
+    <ProjectName>ex1012_SW_LED</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -77,10 +77,10 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\ex0928_LED_2;$(ProjectDir)..\..\..\arduino-1.8.9\libraries;C:\Users\s2862\Documents\Arduino\libraries;$(ProjectDir)..\..\..\arduino-1.8.9\hardware\arduino\avr\libraries;$(ProjectDir)..\..\..\arduino-1.8.9\hardware\arduino\avr\cores\arduino;$(ProjectDir)..\..\..\arduino-1.8.9\hardware\arduino\avr\variants\mega;$(ProjectDir)..\..\..\arduino-1.8.9\hardware\tools\avr\avr\include;$(ProjectDir)..\..\..\arduino-1.8.9\hardware\tools\avr\avr\include\avr;$(ProjectDir)..\..\..\arduino-1.8.9\hardware\tools\avr\lib\gcc\avr\4.8.1\include;$(ProjectDir)..\..\..\arduino-1.8.9\hardware\tools\avr\lib\gcc\avr\4.9.2\include;$(ProjectDir)..\..\..\arduino-1.8.9\hardware\tools\avr\lib\gcc\avr\4.9.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <ForcedIncludeFiles>$(ProjectDir)__vm\.ex0928_LED_2.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-      <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
-      <PreprocessorDefinitions>__AVR_atmega2560__;__AVR_ATmega2560__;_VMDEBUG=1;F_CPU=16000000L;ARDUINO=10809;ARDUINO_AVR_MEGA2560;ARDUINO_ARCH_AVR;__cplusplus=201103L;_VMICRO_INTELLISENSE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\ex1012_SW_LED;$(ProjectDir)..\..\..\arduino-1.8.9\libraries;C:\Users\s2862\Documents\Arduino\libraries;$(ProjectDir)..\..\..\arduino-1.8.9\hardware\arduino\avr\libraries;$(ProjectDir)..\..\..\arduino-1.8.9\hardware\arduino\avr\cores\arduino;$(ProjectDir)..\..\..\arduino-1.8.9\hardware\arduino\avr\variants\mega;$(ProjectDir)..\..\..\arduino-1.8.9\hardware\tools\avr\avr\include;$(ProjectDir)..\..\..\arduino-1.8.9\hardware\tools\avr\avr\include\avr;$(ProjectDir)..\..\..\arduino-1.8.9\hardware\tools\avr\lib\gcc\avr\4.8.1\include;$(ProjectDir)..\..\..\arduino-1.8.9\hardware\tools\avr\lib\gcc\avr\4.9.2\include;$(ProjectDir)..\..\..\arduino-1.8.9\hardware\tools\avr\lib\gcc\avr\4.9.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ProjectDir)__vm\.ex1012_SW_LED.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
+      <PreprocessorDefinitions>__AVR_atmega2560__;__AVR_ATmega2560__;F_CPU=16000000L;ARDUINO=10809;ARDUINO_AVR_MEGA2560;ARDUINO_ARCH_AVR;__cplusplus=201103L;_VMICRO_INTELLISENSE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -89,14 +89,13 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
+      <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\ex0928_LED_2;$(ProjectDir)..\..\..\..\Desktop\arduino-1.8.8\libraries;$(ProjectDir)..\..\..\..\Desktop\arduino-1.8.8\hardware\arduino\avr\libraries;$(ProjectDir)..\..\..\..\Documents\Arduino\libraries;$(ProjectDir)..\..\..\..\Desktop\arduino-1.8.8\hardware\arduino\avr\cores\arduino;$(ProjectDir)..\..\..\..\Desktop\arduino-1.8.8\hardware\arduino\avr\variants\mega;$(ProjectDir)..\..\..\..\Desktop\arduino-1.8.8\hardware\tools\avr\avr\include;$(ProjectDir)..\..\..\..\Desktop\arduino-1.8.8\hardware\tools\avr\avr\include\avr;$(ProjectDir)..\..\..\..\Desktop\arduino-1.8.8\hardware\tools\avr\lib\gcc\avr\4.8.1\include;$(ProjectDir)..\..\..\..\Desktop\arduino-1.8.8\hardware\tools\avr\lib\gcc\avr\4.9.2\include;$(ProjectDir)..\..\..\..\Desktop\arduino-1.8.8\hardware\tools\avr\lib\gcc\avr\4.9.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <ForcedIncludeFiles>$(ProjectDir)__vm\.ex0928_LED_2.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-      <WholeProgramOptimization>false</WholeProgramOptimization>
-      <PreprocessorDefinitions>__AVR_ATmega2560__;F_CPU=16000000L;ARDUINO=10808;ARDUINO_AVR_MEGA2560;ARDUINO_ARCH_AVR;__cplusplus=201103L;_VMICRO_INTELLISENSE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\ex1012_SW_LED;$(ProjectDir)..\..\..\arduino-1.8.9\libraries;C:\Users\s2862\Documents\Arduino\libraries;$(ProjectDir)..\..\..\arduino-1.8.9\hardware\arduino\avr\libraries;$(ProjectDir)..\..\..\arduino-1.8.9\hardware\arduino\avr\cores\arduino;$(ProjectDir)..\..\..\arduino-1.8.9\hardware\arduino\avr\variants\mega;$(ProjectDir)..\..\..\arduino-1.8.9\hardware\tools\avr\avr\include;$(ProjectDir)..\..\..\arduino-1.8.9\hardware\tools\avr\avr\include\avr;$(ProjectDir)..\..\..\arduino-1.8.9\hardware\tools\avr\lib\gcc\avr\4.8.1\include;$(ProjectDir)..\..\..\arduino-1.8.9\hardware\tools\avr\lib\gcc\avr\4.9.2\include;$(ProjectDir)..\..\..\arduino-1.8.9\hardware\tools\avr\lib\gcc\avr\4.9.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ProjectDir)__vm\.ex1012_SW_LED.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <PreprocessorDefinitions>__AVR_atmega2560__;__AVR_ATmega2560__;F_CPU=16000000L;ARDUINO=10809;ARDUINO_AVR_MEGA2560;ARDUINO_ARCH_AVR;__cplusplus=201103L;_VMICRO_INTELLISENSE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -111,12 +110,16 @@
     <DebuggerFlavor>VisualMicroDebugger</DebuggerFlavor>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="ex0928_LED_2.ino">
+    <None Include="ex1012_SW_LED.ino">
       <FileType>CppCode</FileType>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="__vm\.ex0928_LED_2.vsarduino.h" />
+    <None Include="src\arduino folders read me.txt">
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="__vm\.ex1012_SW_LED.vsarduino.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
