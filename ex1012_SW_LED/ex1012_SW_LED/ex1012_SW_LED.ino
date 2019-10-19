@@ -6,22 +6,22 @@
 int LED_PIN[] = { 2, 3, 4, 5, 6, 7, 8, 9 };
 
 int BUT_PIN[] = { 33,34,35,36 };
-int delay_time = 500;
+int delay_time = 300;
 
 bool SW(int);
 void action(int);
 void clean(void);
-void sw1_act();
-void sw2_act();
-void sw3_act();
-void sw4_act();
+void sw1_act(void);
+void sw2_act(void);
+void sw3_act(void);
+void sw4_act(void);
 
 void setup()
 {
 	for (int i = 0; i < 8; i++)
 		pinMode(LED_PIN[i], OUTPUT);
 	for (int i = 0; i < 4; i++)
-		pinMode(BUT_PIN[i], INPUT);
+		pinMode(BUT_PIN[i], INPUT_PULLUP);
 
 	pinMode(A15, OUTPUT);
 	digitalWrite(A15, LOW);
@@ -39,13 +39,13 @@ bool SW(int pin)
 {
 	delay(20);
 	bool sw = digitalRead(pin);
-	if (sw)
+	if (!sw)
 	{
 		do
 		{
 			delay(20);
 			sw = digitalRead(pin);
-		} while (sw);
+		} while (!sw);
 		return true;
 	}
 	return false;
@@ -113,7 +113,7 @@ void sw3_act()
 	int idx_a = 3, idx_b = 4, re = 1;
 	for (int i = 0; i < 2; i++)
 	{
-		for (int j = 0; j < 4; j++)
+		for (int j = 0; j < 3; j++)
 		{
 			digitalWrite(LED_PIN[idx_a], LOW);
 			digitalWrite(LED_PIN[idx_b], LOW);
