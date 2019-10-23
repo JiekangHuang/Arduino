@@ -9,8 +9,8 @@
 
 #include <ESP8266WiFi.h>
 
-const char* ssid = "your-ssid";
-const char* password = "your-password";
+const char* ssid = "Arduino";
+const char* password = "xup6y3pp3150";
 
 // Create an instance of the server
 // specify the port to listen on as an argument
@@ -21,8 +21,7 @@ void setup() {
 	delay(10);
 
 	// prepare GPIO2
-	pinMode(2, OUTPUT);
-	digitalWrite(2, 0);
+	pinMode(D4, OUTPUT);
 
 	// Connect to WiFi network
 	Serial.println();
@@ -79,9 +78,9 @@ void loop() {
 		client.stop();
 		return;
 	}
+	digitalWrite(D4, val);
 
 	// Set GPIO2 according to the request
-	digitalWrite(2, val);
 
 	client.flush();
 
