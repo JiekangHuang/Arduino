@@ -13,7 +13,7 @@ const char *password = STAPSK;
 
 void OTA(void)
 {
-	Serial.println("Booting");
+	Serial.println("OTA Booting...");
 	WiFi.mode(WIFI_STA);
 	WiFi.begin(ssid, password);
 	while (WiFi.waitForConnectResult() != WL_CONNECTED)
@@ -27,10 +27,10 @@ void OTA(void)
 	ArduinoOTA.setPort(8266);
 
 	// Hostname defaults to esp8266-[ChipID]
-	ArduinoOTA.setHostname("myesp8266");
+	ArduinoOTA.setHostname("IOT_Electric_Fan");
 
 	// No authentication by default
-	ArduinoOTA.setPassword("admin");
+	ArduinoOTA.setPassword("0905051611");
 
 	// Password can be set with it's md5 value as well
 	// MD5(admin) = 21232f297a57a5a743894a0e4a801fc3

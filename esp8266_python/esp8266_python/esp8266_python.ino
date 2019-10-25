@@ -7,93 +7,94 @@
 	printed to Serial when the module is connected.
 */
 
-#include <ESP8266WiFi.h>
+#include "OTA.h"
+#include "esp8266 key.h"
 
-const char* ssid = "Arduino";
-const char* password = "xup6y3pp3150";
+#define SW_SPEED D6
+#define SW_OFF D7
+#define LED D4
 
-// Create an instance of the server
-// specify the port to listen on as an argument
 WiFiServer server(80);
+
+bool st = false;
+String mess = "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n";
 
 void setup() {
 	Serial.begin(115200);
-	delay(10);
 
-	// prepare GPIO2
-	pinMode(D4, OUTPUT);
+	pinMode(LED, OUTPUT);
+	pinMode(SW_SPEED, OUTPUT);
+	pinMode(SW_OFF, OUTPUT);
+	digitalWrite(LED, HIGH);
+	digitalWrite(SW_SPEED, LOW);
+	digitalWrite(SW_OFF, LOW);
 
-	// Connect to WiFi network
-	Serial.println();
-	Serial.println();
-	Serial.print("Connecting to ");
-	Serial.println(ssid);
+	OTA();
 
-	WiFi.mode(WIFI_STA);
-	WiFi.begin(ssid, password);
-
-	while (WiFi.status() != WL_CONNECTED) {
-		delay(500);
-		Serial.print(".");
-	}
-	Serial.println("");
-	Serial.println("WiFi connected");
-
-	// Start the server
 	server.begin();
-	Serial.println("Server started");
-
-	// Print the IP address
-	Serial.println(WiFi.localIP());
+	Serial.println("Server started !!");
 }
 
-void loop() {
-	// Check if a client has connected
+void loop()
+{
+	String res;
+	ArduinoOTA.handle();
 	WiFiClient client = server.available();
-	if (!client) {
+	if (!client)
 		return;
-	}
 
-	// Wait until the client sends some data
 	Serial.println("new client");
-	while (!client.available()) {
+	while (!client.available())
 		delay(1);
-	}
 
-	// Read the first line of the request
 	String req = client.readStringUntil('\r');
 	Serial.println(req);
 	client.flush();
 
-	// Match the request
 	int val;
-	if (req.indexOf("/gpio/0") != -1) {
-		val = 0;
+	if (req.indexOf("/gpio/0") != -1)
+	{
+		if (st == false)
+		{
+			val = 0;
+			for (int i = 0; i < 3; i++)
+			{
+				digitalWrite(SW_SPEED, HIGH);
+				delay(100);
+				digitalWrite(SW_SPEED, LOW);
+				delay(100);
+			}
+			st = true;
+			res = mess + "IOT Electric Fan is open !";
+		}
+		else
+			res = mess + "電風扇已經開了喔 ~ !";
 	}
-	else if (req.indexOf("/gpio/1") != -1) {
-		val = 1;
+	else if (req.indexOf("/gpio/1") != -1)
+	{
+		if (st == true)
+		{
+			val = 1;
+			digitalWrite(SW_OFF, HIGH);
+			delay(100);
+			digitalWrite(SW_OFF, LOW);
+			st = false;
+			res = mess + "IOT Electric Fan is close !";
+		}
+		else
+			res = mess + "電風扇已經關了喔 ~ !";
 	}
-	else {
+	else
+	{
 		Serial.println("invalid request");
 		client.stop();
 		return;
 	}
-	digitalWrite(D4, val);
-
-	// Set GPIO2 according to the request
+	digitalWrite(LED, val);
 
 	client.flush();
 
-	// Prepare the response
-	String s = "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n<!DOCTYPE HTML>\r\n<html>\r\nGPIO is now ";
-	s += (val) ? "high" : "low";
-	s += "</html>\n";
-
-	// Send the response to the client
-	client.print(s);
+	client.print(res);
 	delay(1);
 	Serial.println("Client disonnected");
-
-	// The client will actually be disconnected
-	// when the function returns and 'client' object is detroyed
 }
