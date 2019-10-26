@@ -78,7 +78,7 @@ void show(String num)
 {
 	for (byte i = 0; i < num.length(); i++)
 	{
-		byte n = atoi(&num[3 - i]);
+		byte n = num[3 - i] - 48;
 		pickDigit(i);
 		for (int i = 0; i < 7; i++)
 			digitalWrite(segs[i], seven_seg_digits[n][i]);
