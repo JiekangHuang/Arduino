@@ -2,23 +2,33 @@
 #define CA2 31
 #define CA3 32
 
-byte segs[] = { 2, 3, 4, 5, 6, 7, 8 };
+byte segs[] = {2, 3, 4, 5, 6, 7, 8};
 
 byte seven_seg_digits[10][7] =
-{
-	{ 0,0,0,0,0,0,1 },
-	{ 1,0,0,1,1,1,1 },
-	{ 0,0,1,0,0,1,0 },
-	{ 0,0,0,0,1,1,0 },
-	{ 1,0,0,1,1,0,0 },
-	{ 0,1,0,0,1,0,0 },
-	{ 0,1,0,0,0,0,0 },
-	{ 0,0,0,1,1,1,1 },
-	{ 0,0,0,0,0,0,0 },
-	{ 0,0,0,1,1,0,0 }
-};
+	{
+		{0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 1, 1, 1, 1},
+		{0, 0, 1, 0, 0, 1, 0},
+		{0, 0, 0, 0, 1, 1, 0},
+		{1, 0, 0, 1, 1, 0, 0},
+		{0, 1, 0, 0, 1, 0, 0},
+		{0, 1, 0, 0, 0, 0, 0},
+		{0, 0, 0, 1, 1, 1, 1},
+		{0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 1, 1, 0, 0}};
 
-String text[] = { "2019" ,"1005" };
+bool _74LS138[][3] =
+	{
+		{0, 0, 0},
+		{0, 0, 1},
+		{0, 1, 0},
+		{0, 1, 1},
+		{1, 0, 0},
+		{1, 0, 1},
+		{1, 1, 0},
+		{1, 1, 1}};
+
+String text[] = {"2019", "1005"};
 unsigned long pre_time;
 byte idx = 0, re = 1;
 
@@ -49,29 +59,8 @@ void loop()
 
 void pickDigit(byte x)
 {
-	switch (x)
-	{
-	case 0:
-		digitalWrite(CA1, LOW);
-		digitalWrite(CA2, LOW);
-		digitalWrite(CA3, LOW);
-		break;
-	case 1:
-		digitalWrite(CA1, HIGH);
-		digitalWrite(CA2, LOW);
-		digitalWrite(CA3, LOW);
-		break;
-	case 2:
-		digitalWrite(CA1, LOW);
-		digitalWrite(CA2, HIGH);
-		digitalWrite(CA3, LOW);
-		break;
-	case 3:
-		digitalWrite(CA1, HIGH);
-		digitalWrite(CA2, HIGH);
-		digitalWrite(CA3, LOW);
-		break;
-	}
+	for (int i = 0, j = CA3; i < 3; i++, j--)
+		digitalWrite(j, _74LS138[x][i]);
 }
 
 void show(String num)
