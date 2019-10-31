@@ -3,9 +3,6 @@
  Created:	2019/10/26 上午 10:46:33
  Author:	s2862
 */
-#define CA1 30
-#define CA2 31
-#define CA3 32
 
 int BUT_PIN[] = { 33,34 };
 byte segs[] = { 2, 3, 4, 5, 6, 7, 8 };
@@ -32,8 +29,6 @@ void setup()
 {
 	for (int i = 0; i < 7; i++)
 		pinMode(segs[i], OUTPUT);
-	for (byte i = CA1; i <= CA3; i++)
-		pinMode(i, OUTPUT);
 	for (int i = 0; i < 4; i++)
 		pinMode(BUT_PIN[i], INPUT_PULLUP);
 	pinMode(A13, OUTPUT);

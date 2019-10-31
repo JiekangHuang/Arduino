@@ -93,8 +93,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\SW_add_num;$(ProjectDir)..\..\arduino-1.8.8\libraries;$(ProjectDir)..\..\arduino-1.8.8\hardware\arduino\avr\libraries;$(ProjectDir)..\..\..\Documents\Arduino\libraries;$(ProjectDir)..\..\arduino-1.8.8\hardware\arduino\avr\cores\arduino;$(ProjectDir)..\..\arduino-1.8.8\hardware\arduino\avr\variants\mega;$(ProjectDir)..\..\arduino-1.8.8\hardware\tools\avr\avr\include;$(ProjectDir)..\..\arduino-1.8.8\hardware\tools\avr\avr\include\avr;$(ProjectDir)..\..\arduino-1.8.8\hardware\tools\avr\lib\gcc\avr\4.8.1\include;$(ProjectDir)..\..\arduino-1.8.8\hardware\tools\avr\lib\gcc\avr\4.9.2\include;$(ProjectDir)..\..\arduino-1.8.8\hardware\tools\avr\lib\gcc\avr\4.9.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <ForcedIncludeFiles>$(ProjectDir)__vm\.SW_add_num.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\ex1026_SW_add_num;$(ProjectDir)..\..\arduino-1.8.8\libraries;$(ProjectDir)..\..\arduino-1.8.8\hardware\arduino\avr\libraries;$(ProjectDir)..\..\..\Documents\Arduino\libraries;$(ProjectDir)..\..\arduino-1.8.8\hardware\arduino\avr\cores\arduino;$(ProjectDir)..\..\arduino-1.8.8\hardware\arduino\avr\variants\mega;$(ProjectDir)..\..\arduino-1.8.8\hardware\tools\avr\avr\include;$(ProjectDir)..\..\arduino-1.8.8\hardware\tools\avr\avr\include\avr;$(ProjectDir)..\..\arduino-1.8.8\hardware\tools\avr\lib\gcc\avr\4.8.1\include;$(ProjectDir)..\..\arduino-1.8.8\hardware\tools\avr\lib\gcc\avr\4.9.2\include;$(ProjectDir)..\..\arduino-1.8.8\hardware\tools\avr\lib\gcc\avr\4.9.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ProjectDir)__vm\.ex1026_SW_add_num.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <PreprocessorDefinitions>__AVR_atmega2560__;__AVR_ATmega2560__;F_CPU=16000000L;ARDUINO=10808;ARDUINO_AVR_MEGA2560;ARDUINO_ARCH_AVR;__cplusplus=201103L;_VMICRO_INTELLISENSE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -116,6 +116,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="__vm\.ex1026_SW_add_num.vsarduino.h" />
     <ClInclude Include="__vm\.SW_add_num.vsarduino.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
