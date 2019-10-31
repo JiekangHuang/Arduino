@@ -76,9 +76,10 @@ void pickDigit(byte x)
 
 void show(String num)
 {
-	for (byte i = 0; i < num.length(); i++)
+	int num_len = num.length();
+	for (byte i = 0; i < num_len; i++)
 	{
-		byte n = num[3 - i] - 48;
+		byte n = num[num_len - i] - 48;
 		pickDigit(i);
 		for (int i = 0; i < 7; i++)
 			digitalWrite(segs[i], seven_seg_digits[n][i]);
