@@ -57,7 +57,7 @@ void loop()
 		if (st == false)
 		{
 			val = 0;
-			for (int i = 0; i < 3; i++)
+			for (int i = 0; i < 1; i++)
 			{
 				digitalWrite(SW_SPEED, HIGH);
 				delay(100);
