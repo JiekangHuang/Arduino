@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MAX7219.h" />
+    <ClInclude Include="node.h" />
     <ClInclude Include="Snake.h" />
     <ClInclude Include="__vm\.Snake_Matrix.vsarduino.h" />
   </ItemGroup>

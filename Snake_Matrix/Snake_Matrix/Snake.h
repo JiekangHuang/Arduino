@@ -1,193 +1,139 @@
-class node
-{
-public:
-    char val;
-    int dir;
-    node()
-    {
-        val = non;
-        dir = -1;
-    }
-};
+#include "node.h"
+
+#define COL 24
+#define ROW 24
+
+#define FOOD 2
+#define SKE 1
+#define NON 0
+#define STARTX 10
+#define STARTY 8
 
 class Snake
 {
 private:
-    node map[24][32];
-    int px, py;
-    int x, y;
-    int food_x, food_y;
-    int snake_len;
-    char direction;
-    int sx_pop, sy_pop;
+	node* snake_map[24];
+	int head_x, head_y;
+	int food_x, food_y;
+	int snake_len;
+	int tail_x, tail_y;
+
+	bool is_del();
+	void swch(byte&, byte&);
+	void check_food();
 
 public:
-    Snake();
-    ~Snake();
-    void check_food();
-    void show();
-    void key();
-    bool is_del();
-    bool is_move();
-    void swch(char &, char &);
+	Snake();
+	~Snake();
+	bool is_move();
+	void Set_cur_dir(byte);
+	node** Get_snake_map();
 };
 
 Snake::Snake()
 {
-    snake_len = 0;
-    px = 10;
-    py = 15;
-    map[px][py].val = s;
-    x = px;
-    y = py;
-    food_x = food_y = 0;
-    direction = 'x';
-    sx_pop = x;
-    sy_pop = y;
-    check_food();
+	randomSeed(analogRead(A0));
+
+	snake_len = 0;
+	snake_map[STARTX][STARTY].val = 1;
+	tail_x = head_x = STARTX;
+	tail_y = head_y = STARTY;
+
+	food_x = food_y = NON;
+	check_food();
 }
 
 Snake::~Snake()
 {
 }
 
-//??????
 void Snake::check_food()
 {
-    if (map[food_x][food_y].val != f)
-    {
-        srand(time(NULL));
-        food_x = rand() % 23 + 0;
-        food_y = rand() % 31 + 0;
-        map[food_x][food_y].val = f;
-        snake_len += 1;
-    }
-}
-
-void Snake::show()
-{
-    for (int i = 0; i < 24; i++)
-    {
-        for (int j = 0; j < 32; j++)
-        {
-            cout << map[i][j].val << " ";
-        }
-        cout << endl;
-    }
-    cout << "snake length = " << snake_len << endl;
-    cout << "direction = " << direction << endl;
-}
-
-void Snake::key()
-{
-    char key = getch();
-    switch (key)
-    {
-    case 'w': // UP
-        direction = 'F';
-        map[x][y].dir = 1;
-        break;
-    case 's': // DOWN
-        direction = 'B';
-        map[x][y].dir = 3;
-        break;
-    case 'd': // Right
-        direction = 'R';
-        map[x][y].dir = 4;
-        break;
-    case 'a': // Left
-        direction = 'L';
-        map[x][y].dir = 2;
-        break;
-    }
+	if (snake_map[food_x][food_y].val != FOOD)
+	{
+		food_x = random(16);
+		food_y = random(24);
+		snake_map[food_x][food_y].val = FOOD;
+		snake_len += 1;
+	}
 }
 
 bool Snake::is_del()
 {
-    if (x >= 24 || x < 0 || y >= 32 || y < 0 || map[x][y].val == s)
-        return true;
-    return false;
+	if (head_x >= ROW || head_x < 0 || head_y >= COL || head_y < 0 || snake_map[head_x][head_y].val == SKE)
+		return true;
+	return false;
 }
 
 bool Snake::is_move()
 {
-    node &cur = map[x][y];
-    switch (cur.dir)
-    {
-    case 1:
-        x -= 1;
-        break;
-    case 3:
-        x += 1;
-        break;
-    case 4:
-        y += 1;
-        break;
-    case 2:
-        y -= 1;
-        break;
-    }
+	node& cur_node = snake_map[head_x][head_y];
+	switch (cur_node.dir)
+	{
+	case 1:
+		head_x -= 1;
+		break;
+	case 2:
+		head_y -= 1;
+		break;
+	case 3:
+		head_x += 1;
+		break;
+	case 4:
+		head_y += 1;
+		break;
+	}
 
-    //check eat
-    if (map[x][y].val == f)
-    {
-        map[x][y].val = s;
-        map[x][y].dir = cur.dir;
-        return true;
-    }
+	//check del
+	if (is_del())
+		return false;
+	//check eat
+	else if (snake_map[head_x][head_y].val == FOOD)
+	{
+		snake_map[head_x][head_y].val = SKE;
+		snake_map[head_x][head_y].dir = cur_node.dir;
+		check_food();
+	}
+	//move
+	else
+	{
+		swch(snake_map[head_x][head_y].val, snake_map[tail_x][tail_y].val);
+		snake_map[head_x][head_y].dir = cur_node.dir;
 
-    if (is_del())
-        return false;
-    swch(map[x][y].val, map[sx_pop][sy_pop].val);
-    map[x][y].dir = cur.dir;
-
-    node &pre_pop = map[sx_pop][sy_pop];
-    switch (pre_pop.dir)
-    {
-    case 1:
-        sx_pop -= 1;
-        break;
-    case 3:
-        sx_pop += 1;
-        break;
-    case 4:
-        sy_pop += 1;
-        break;
-    case 2:
-        sy_pop -= 1;
-        break;
-    }
-    pre_pop.dir = -1;
-    return true;
+		node& pre_tail_node = snake_map[tail_x][tail_y];
+		switch (pre_tail_node.dir)
+		{
+		case 1:
+			tail_x -= 1;
+			break;
+		case 3:
+			tail_x += 1;
+			break;
+		case 4:
+			tail_y += 1;
+			break;
+		case 2:
+			tail_y -= 1;
+			break;
+		}
+		pre_tail_node.dir = -1;
+	}
+	return true;
 }
 
-void Snake::swch(char &a, char &b)
+void Snake::swch(byte & a, byte & b)
 {
-    a = a ^ b;
-    b = a ^ b;
-    a = a ^ b;
+	a = a ^ b;
+	b = a ^ b;
+	a = a ^ b;
 }
 
-int main(void)
+void Snake::Set_cur_dir(byte dir)
 {
-    Snake snake;
-    //start
-    snake.show();
-    while (true)
-    {
-        snake.key();
-        if (!snake.is_move())
-            break;
-        snake.check_food();
-        system("cls");
-        snake.show();
-    }
-
-    system("cls");
-    cout << "GAME OVER !!" << endl;
-    system("pause");
-    return 0;
+	snake_map[head_x][head_y].dir = dir;
 }
 
-//?? Snake struct?member:value?direction
-//Snack length > 1 ???????????
+inline node** Snake::Get_snake_map()
+{
+	return this->snake_map;
+}

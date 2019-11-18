@@ -1,39 +1,18 @@
-﻿#include <Arduino.h>
-#include "MAX7219.h"
+﻿#include "MAX7219.h"
+#include "Snake.h"
 
 const byte CLK = 13;
 const byte LOAD = 10;
 const byte DIN = 11;
 
+const byte buts[] = { 2, 3, 4, 5 };
 #define NUM_OF_MATRIXES (6)
 
-byte snake_map[24][32];
-
 MAX7219 max7219(DIN, LOAD, CLK, NUM_OF_MATRIXES);
+Snake snake;
 
-void display()
-{
-	unsigned int matrix_index = 0;
-	max7219.set_all_registers(MAX7219_SHUTDOWN_REG, MAX7219_OFF);
-
-	for (int i = 0; i < 2; i++)
-		for (int j = 0; j < 3; j++)
-		{
-			for (int k = 0; k < NUM_OF_COLUMNS; k++)
-			{
-				byte data = 0x0;
-				for (int m = 0; m < NUM_OF_COLUMNS; m++)
-				{
-					data |= snake_map[i * NUM_OF_COLUMNS + m][j * NUM_OF_COLUMNS + k];
-					data <<= 1;
-				}
-				max7219.set_single_register(matrix_index, MAX7219_COLUMN_REG(k), data);
-			}
-			matrix_index++;
-		}
-
-	max7219.set_all_registers(MAX7219_SHUTDOWN_REG, MAX7219_ON);
-}
+bool SW(int);
+void Action(byte);
 
 void setup()
 {
@@ -46,5 +25,43 @@ void setup()
 
 void loop()
 {
-	display();
+	for (int i = 0; i < 4; i++)
+		if (SW(buts[i]))
+			Action(i);
+
+	max7219.display(snake.Get_snake_map());
+
+	if (!snake.is_move())
+	{
+		digitalWrite(13, HIGH);
+		max7219.clear_matrix();
+		while (true)
+			;
+	}
+}
+
+bool SW(int pin)
+{
+	bool sw = digitalRead(pin);
+	if (!sw)
+	{
+		do
+		{
+			delay(5);
+			sw = digitalRead(pin);
+		} while (!sw);
+		return true;
+	}
+	return false;
+}
+
+void Action(byte bt_idx)
+{
+	static byte pre_dir = -1;
+
+	if (abs(bt_idx - pre_dir) == 2)
+		//Direction is opposite to last time
+		return;
+	snake.Set_cur_dir(bt_idx + 1);
+	pre_dir = bt_idx;
 }

@@ -57,6 +57,8 @@ const byte char_pattern[] =
 
 #define DISPLAY_STR_LENGTH (sizeof(char_pattern) / BYTE_PER_MAP) //17
 
+
+
 // update a specific register value of all MAX7219s
 void set_all_registers(byte address, byte value)
 {
