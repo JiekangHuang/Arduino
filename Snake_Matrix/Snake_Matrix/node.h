@@ -1,13 +1,6 @@
 #pragma once
-class node
+typedef struct
 {
-public:
 	byte val;
 	byte dir;
-
-	node()
-	{
-		this->val = 0;
-		this->dir = -1;
-	}
-};
+}node;

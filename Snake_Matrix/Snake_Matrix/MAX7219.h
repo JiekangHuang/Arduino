@@ -27,7 +27,8 @@ public:
 	void set_single_register(int, byte, byte);
 	void clear_matrix();
 	void init_max7219();
-	void display(node* map[24]);
+	void display(node**);
+	void off();
 };
 
 MAX7219::MAX7219(byte DIN, byte LOAD, byte CLK, int num_of_matrixes)
@@ -86,7 +87,7 @@ void MAX7219::init_max7219()
 	clear_matrix();
 }
 
-void MAX7219::display(node * snake_map[24])
+void MAX7219::display(node **snake_map)
 {
 	this->set_all_registers(MAX7219_SHUTDOWN_REG, MAX7219_OFF);
 
@@ -98,7 +99,7 @@ void MAX7219::display(node * snake_map[24])
 				byte value = 0x0;
 				for (int m = 0; m < NUM_OF_COLUMNS; m++)
 				{
-					value |= snake_map[i * NUM_OF_COLUMNS + m][k * NUM_OF_COLUMNS + j].val;
+					value |= (snake_map + (i * NUM_OF_COLUMNS + m))[k * NUM_OF_COLUMNS + j]->val;
 					value <<= 1;
 				}
 				shiftOut(DIN, CLK, MSBFIRST, MAX7219_COLUMN_REG(j));
@@ -107,4 +108,9 @@ void MAX7219::display(node * snake_map[24])
 	digitalWrite(LOAD, HIGH);
 
 	this->set_all_registers(MAX7219_SHUTDOWN_REG, MAX7219_ON);
+}
+
+inline void MAX7219::off()
+{
+	this->set_all_registers(MAX7219_SHUTDOWN_REG, MAX7219_OFF);
 }
