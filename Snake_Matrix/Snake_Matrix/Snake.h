@@ -1,5 +1,4 @@
 #include "node.h"
-#include "Arduino.h"
 
 #define COL 24
 #define ROW 16
@@ -7,6 +6,8 @@
 #define FOOD 2
 #define SKE 1
 #define NON 0
+
+typedef bool(*chk_f)(void);
 
 class Snake
 {
@@ -19,22 +20,39 @@ private:
 
 	uint8_t startx, starty;
 
-	bool is_del();
+	bool is_dead();
 	void swch(uint8_t&, uint8_t&);
-	void check_food();
 
 public:
 	Snake(uint8_t startx = 10, uint8_t starty = 8);
 	~Snake();
-	bool is_move();
+	bool is_move(chk_f);
 	void Set_cur_dir(uint8_t);
-	node* Get_snake_map();
-	void init()
+	node** Get_snake_map();
+	void Set_foodxy(uint8_t*, uint8_t*);
+	void add_snake_len();
+	void check_food(chk_f);
+
+	uint8_t &Get_foodx()
+	{
+		return this->food_x;
+	}
+	uint8_t &Get_foody()
+	{
+		return this->food_y;
+	}
+	void run()
 	{
 		for (int i = 0; i < 16; i++)
 		{
 			for (int j = 0; j < 24; j++)
+			{
 				Serial.print((*(snake_map + i) + j)->val);
+				/*
+				Serial.print((long)(*(snake_map + i) + j), HEX);
+				Serial.print(",");
+				*/
+			}
 			Serial.println();
 		}
 		Serial.println();
@@ -49,7 +67,6 @@ Snake::Snake(uint8_t startx, uint8_t starty)
 
 	this->startx = startx;
 	this->starty = starty;
-	randomSeed(analogRead(0));
 
 	snake_len = 0;
 	(*(snake_map + startx) + starty)->val = 1;
@@ -57,33 +74,20 @@ Snake::Snake(uint8_t startx, uint8_t starty)
 	tail_y = head_y = starty;
 
 	food_x = food_y = NON;
-	Serial.begin(115200);
-	check_food();
 }
 
 Snake::~Snake()
 {
 }
 
-void Snake::check_food()
-{
-	if ((*(snake_map + food_x) + food_y)->val != FOOD)
-	{
-		(*(snake_map + food_x) + food_y)->val = FOOD;
-		snake_len += 1;
-		long a = random(16);
-		Serial.println("test");
-	}
-}
-
-bool Snake::is_del()
+bool Snake::is_dead()
 {
 	if (head_x >= ROW || head_x < 0 || head_y >= COL || head_y < 0 || (*(snake_map + head_x) + head_y)->val == SKE)
 		return true;
 	return false;
 }
 
-bool Snake::is_move()
+bool Snake::is_move(chk_f check_food)
 {
 	node* cur_node = (*(snake_map + head_x) + head_y);
 	switch (cur_node->dir)
@@ -103,7 +107,7 @@ bool Snake::is_move()
 	}
 
 	//check dead
-	if (is_del())
+	if (is_dead())
 		return false;
 	//check eat
 	else if ((*(snake_map + head_x) + head_y)->val == FOOD)
@@ -151,7 +155,25 @@ void Snake::Set_cur_dir(uint8_t dir)
 	(*(snake_map + head_x) + head_y)->dir = dir;
 }
 
-inline node* Snake::Get_snake_map()
+inline node** Snake::Get_snake_map()
 {
-	return snake_map[0];
+	node *ptr = (snake_map + 0)[0];
+	return &ptr;
+}
+
+inline void Snake::Set_foodxy(uint8_t *food_x, uint8_t *food_y)
+{
+	this->food_x = *food_x;
+	this->food_y = *food_y;
+}
+
+inline void Snake::add_snake_len()
+{
+	this->snake_len++;
+}
+
+inline void Snake::check_food(chk_f check_food)
+{
+	if (check_food())
+		this->add_snake_len();
 }
