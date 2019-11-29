@@ -105,19 +105,20 @@ void setup()
 
 	// init MAX2719 states
 	init_all_max7219();
-	for (int i = 0; i < 3; i++)
+	/*for (int i = 0; i < 3; i++)
 	{
 		set_all_registers(MAX7219_DISPLAYTEST_REG, MAX7219_ON);
 		delay(500);
 		set_all_registers(MAX7219_DISPLAYTEST_REG, MAX7219_OFF);
 		delay(500);
-	}
+	}*/
 }
 
 unsigned int starting_column_index = 0;
 
 void loop()
 {
+	Run();
 }
 
 void Run()

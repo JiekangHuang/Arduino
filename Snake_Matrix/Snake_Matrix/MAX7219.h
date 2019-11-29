@@ -27,8 +27,9 @@ public:
 	void set_single_register(int, byte, byte);
 	void clear_matrix();
 	void init_max7219();
-	void display(node**);
-	void off();
+	void display(node*);
+	void display_on();
+	void display_off();
 };
 
 MAX7219::MAX7219(byte DIN, byte LOAD, byte CLK, int num_of_matrixes)
@@ -79,38 +80,54 @@ void MAX7219::clear_matrix()
 
 void MAX7219::init_max7219()
 {
+	pinMode(CLK, OUTPUT);
+	pinMode(LOAD, OUTPUT);
+	pinMode(DIN, OUTPUT);
+
 	set_all_registers(MAX7219_DISPLAYTEST_REG, MAX7219_OFF);
-	set_all_registers(MAX7219_INTENSITY_REG, 0x1);
+	set_all_registers(MAX7219_INTENSITY_REG, 0x2);
 	set_all_registers(MAX7219_SHUTDOWN_REG, MAX7219_OFF);
 	set_all_registers(MAX7219_SCANLIMIT_REG, 7);
 	set_all_registers(MAX7219_DECODE_REG, B00000000);
 	clear_matrix();
 }
 
-void MAX7219::display(node **snake_map)
+void MAX7219::display(node *snake_map)
 {
-	this->set_all_registers(MAX7219_SHUTDOWN_REG, MAX7219_OFF);
+	//this->set_all_registers(MAX7219_SHUTDOWN_REG, MAX7219_OFF);
 
-	digitalWrite(LOAD, LOW);
-	for (int i = 0; i < 2; i++)
-		for (int j = 0; j < NUM_OF_COLUMNS; j++)
+	for (int i = 0; i < NUM_OF_COLUMNS; i++)
+	{
+		digitalWrite(LOAD, LOW);
+		for (int j = 0; j < 2; j++)
+		{
 			for (int k = 0; k < 3; k++)
 			{
 				byte value = 0x0;
-				for (int m = 0; m < NUM_OF_COLUMNS; m++)
+				for (int m = 0; m < NUM_OF_COLUMNS - 1; m++)
 				{
-					value |= (snake_map + (i * NUM_OF_COLUMNS + m))[k * NUM_OF_COLUMNS + j]->val;
+					byte data = ((((j*NUM_OF_COLUMNS + i) * 24) + snake_map + (k * NUM_OF_COLUMNS + m)))->val;
+					if (data == 0x2)
+						data = 0x1;
+					value |= data;
 					value <<= 1;
 				}
-				shiftOut(DIN, CLK, MSBFIRST, MAX7219_COLUMN_REG(j));
+				value |= (((j*NUM_OF_COLUMNS + i) * 24) + snake_map + (k * NUM_OF_COLUMNS + NUM_OF_COLUMNS - 1))->val;
+				shiftOut(DIN, CLK, MSBFIRST, MAX7219_COLUMN_REG(i));
 				shiftOut(DIN, CLK, MSBFIRST, value);
 			}
-	digitalWrite(LOAD, HIGH);
+		}
+		digitalWrite(LOAD, HIGH);
+	}
 
-	this->set_all_registers(MAX7219_SHUTDOWN_REG, MAX7219_ON);
+	//this->set_all_registers(MAX7219_SHUTDOWN_REG, MAX7219_ON);
 }
 
-inline void MAX7219::off()
+inline void MAX7219::display_off()
 {
 	this->set_all_registers(MAX7219_SHUTDOWN_REG, MAX7219_OFF);
+}
+inline void MAX7219::display_on()
+{
+	this->set_all_registers(MAX7219_SHUTDOWN_REG, MAX7219_ON);
 }

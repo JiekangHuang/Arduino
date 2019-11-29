@@ -28,42 +28,23 @@ public:
 	~Snake();
 	bool is_move(chk_f);
 	void Set_cur_dir(uint8_t);
-	node** Get_snake_map();
+	node* Get_snake_map();
 	void Set_foodxy(uint8_t*, uint8_t*);
 	void add_snake_len();
 	void check_food(chk_f);
 
-	uint8_t &Get_foodx()
-	{
-		return this->food_x;
-	}
-	uint8_t &Get_foody()
-	{
-		return this->food_y;
-	}
-	void run()
-	{
-		for (int i = 0; i < 16; i++)
-		{
-			for (int j = 0; j < 24; j++)
-			{
-				Serial.print((*(snake_map + i) + j)->val);
-				/*
-				Serial.print((long)(*(snake_map + i) + j), HEX);
-				Serial.print(",");
-				*/
-			}
-			Serial.println();
-		}
-		Serial.println();
-	}
+	uint8_t &Get_foodx();
+	uint8_t &Get_foody();
 };
 
 Snake::Snake(uint8_t startx, uint8_t starty)
 {
 	for (int i = 0; i < ROW; i++)
 		for (int j = 0; j < COL; j++)
+		{
 			(*(snake_map + i) + j)->val = 0;
+			(*(snake_map + i) + j)->dir = -1;
+		}
 
 	this->startx = startx;
 	this->starty = starty;
@@ -74,6 +55,7 @@ Snake::Snake(uint8_t startx, uint8_t starty)
 	tail_y = head_y = starty;
 
 	food_x = food_y = NON;
+	(*(snake_map + head_x) + head_y)->dir = 4;
 }
 
 Snake::~Snake()
@@ -155,10 +137,9 @@ void Snake::Set_cur_dir(uint8_t dir)
 	(*(snake_map + head_x) + head_y)->dir = dir;
 }
 
-inline node** Snake::Get_snake_map()
+inline node* Snake::Get_snake_map()
 {
-	node *ptr = (snake_map + 0)[0];
-	return &ptr;
+	return *(snake_map + 0);
 }
 
 inline void Snake::Set_foodxy(uint8_t *food_x, uint8_t *food_y)
@@ -176,4 +157,13 @@ inline void Snake::check_food(chk_f check_food)
 {
 	if (check_food())
 		this->add_snake_len();
+}
+
+uint8_t &Snake::Get_foodx()
+{
+	return this->food_x;
+}
+uint8_t &Snake::Get_foody()
+{
+	return this->food_y;
 }
