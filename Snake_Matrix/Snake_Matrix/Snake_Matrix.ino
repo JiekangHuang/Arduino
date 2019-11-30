@@ -22,6 +22,11 @@ void setup()
 {
 	Serial.begin(115200);
 
+	for (int i = 0; i < 4; i++)
+	{
+		pinMode(buts[i], INPUT);
+		digitalWrite(buts[i], INPUT_PULLUP);
+	}
 	max7219.init_max7219();
 
 	randomSeed(analogRead(0));
@@ -44,9 +49,9 @@ void loop()
 	5.難度設定
 	6.最高紀錄(可有可無)
 	*/
-	/*for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 4; i++)
 		if (SW(buts[i]))
-			Action(i);*/
+			Action(i);
 	if (millis() - pre_time >= 500)
 	{
 		if (!snake.is_move(check_food))
@@ -108,13 +113,13 @@ void print_to_Serial(void)
 bool SW(int pin)
 {
 	bool sw = digitalRead(pin);
-	if (sw)
+	if (!sw)
 	{
 		do
 		{
 			delay(5);
 			sw = digitalRead(pin);
-		} while (sw);
+		} while (!sw);
 		return true;
 	}
 	return false;
@@ -122,6 +127,7 @@ bool SW(int pin)
 
 void Action(byte bt_idx)
 {
+	Serial.println(bt_idx);
 	static byte pre_dir = -1;
 
 	if (abs(bt_idx - pre_dir) == 2)

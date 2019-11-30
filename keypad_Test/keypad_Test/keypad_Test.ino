@@ -24,7 +24,7 @@ void setup() {
 
 void loop() {
 	char customKey = customKeypad.getKey();   // 讀取鍵盤的輸入
-	if (customKey) {                           // 判別有按鍵按下時
-		Serial.println(customKey);              // 按鍵輸出至序列埠觀測視窗
-	}
+	//if (customKey) {                           // 判別有按鍵按下時
+	Serial.println(customKey != NULL);              // 按鍵輸出至序列埠觀測視窗
+//}
 }
