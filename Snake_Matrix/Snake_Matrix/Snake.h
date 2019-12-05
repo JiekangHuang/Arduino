@@ -26,7 +26,7 @@ private:
 public:
 	Snake(uint8_t startx = 10, uint8_t starty = 8);
 	~Snake();
-	bool is_move(chk_f);
+	bool is_move(chk_f, int &speed);
 	void Set_cur_dir(uint8_t);
 	node* Get_snake_map();
 	void Set_foodxy(uint8_t*, uint8_t*);
@@ -69,7 +69,7 @@ bool Snake::is_dead()
 	return false;
 }
 
-bool Snake::is_move(chk_f check_food)
+bool Snake::is_move(chk_f check_food, int &speed)
 {
 	node* cur_node = (*(snake_map + head_x) + head_y);
 	switch (cur_node->dir)
@@ -94,6 +94,8 @@ bool Snake::is_move(chk_f check_food)
 	//check eat
 	else if ((*(snake_map + head_x) + head_y)->val == FOOD)
 	{
+		speed -= 100;
+		speed <= 150 ? speed = 150 : NULL;
 		(*(snake_map + head_x) + head_y)->val = SKE;
 		(*(snake_map + head_x) + head_y)->dir = cur_node->dir;
 		check_food();

@@ -13,6 +13,8 @@ void Action(byte);
 bool check_food(void);
 void print_to_Serial(void);
 
+int speed = 500;
+
 MAX7219 max7219(DIN, LOAD, CLK, NUM_OF_MATRIXES);
 Snake snake(10, 8);
 
@@ -34,9 +36,14 @@ void setup()
 
 	pre_time = millis();
 	max7219.display_on();
-	Serial.print(snake.Get_foodx());
-	Serial.print(" , ");
+
+	Serial.print("food_x = ");
+	Serial.println(snake.Get_foodx());
+	Serial.print("food_y = ");
 	Serial.println(snake.Get_foody());
+	Serial.println();
+	Serial.println();
+	Serial.print("GAME Start!!");
 }
 
 void loop()
@@ -49,12 +56,24 @@ void loop()
 	5.難度設定
 	6.最高紀錄(可有可無)
 	*/
-	for (int i = 0; i < 4; i++)
-		if (SW(buts[i]))
-			Action(i);
-	if (millis() - pre_time >= 500)
+	//for (int i = 0; i < 4; i++)
+	//	if (SW(buts[i]))
+	//		Action(i);
+	int x = analogRead(A0);
+	int y = analogRead(A1);
+
+	if (y > 800)
+		Action(3);
+	else if (y < 300)
+		Action(1);
+	else if (x > 800)
+		Action(0);
+	else if (x < 300)
+		Action(2);
+
+	if (millis() - pre_time >= speed)
 	{
-		if (!snake.is_move(check_food))
+		if (!snake.is_move(check_food, speed))
 		{
 			max7219.display_off();
 			Serial.println("is dead!!");
@@ -127,7 +146,8 @@ bool SW(int pin)
 
 void Action(byte bt_idx)
 {
-	Serial.println(bt_idx);
+	//Serial.print("bt_idx = ");
+	//Serial.println(bt_idx);
 	static byte pre_dir = -1;
 
 	if (abs(bt_idx - pre_dir) == 2)
