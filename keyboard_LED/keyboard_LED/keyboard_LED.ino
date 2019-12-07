@@ -26,13 +26,12 @@ Keypad customKeypad = Keypad(makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS)
 void setup()
 {
 	Serial.begin(115200);
-	for (int i = 0; i < sizeof(LED_PIN); i++)
+	for (int i = 2; i <= 9; i++)
 	{
-		pinMode(LED_PIN[i], OUTPUT);
-		digitalWrite(LED_PIN[i], HIGH);
-	}
-	for (int i = 2; i <= 5; i++)
+		pinMode(i, OUTPUT);
 		digitalWrite(i, HIGH);
+	}
+
 	pinMode(A15, OUTPUT);
 	digitalWrite(A15, LOW);
 }
@@ -46,7 +45,7 @@ void loop()
 		//0x00例外處理
 		customKey == 0x1A ? customKey = 0x00 : NULL;
 		//2.讀取二進位每一個元
-		for (int i = 3; i >= 0; i--)
+		for (int i = 0; i < 4; i++)
 		{
 			bool value = customKey & 1;
 			//右位移1位元

@@ -49,16 +49,19 @@ void setup()
 void loop()
 {
 	/*
-	1.裝四顆方向按鈕
 	2.死亡跑馬燈(GG!!)
-	3.解決scan speed too low --ok
 	4.使用三位數七段顯示器顯示蛇長
 	5.難度設定
 	6.最高紀錄(可有可無)
 	*/
-	//for (int i = 0; i < 4; i++)
-	//	if (SW(buts[i]))
-	//		Action(i);
+
+	//按鈕控制
+	for (int i = 0; i < 4; i++)
+		if (SW(buts[i]))
+			Action(i);
+
+	/*
+	搖桿控制
 	int x = analogRead(A0);
 	int y = analogRead(A1);
 
@@ -70,6 +73,7 @@ void loop()
 		Action(0);
 	else if (x < 300)
 		Action(2);
+	*/
 
 	if (millis() - pre_time >= speed)
 	{
@@ -86,18 +90,18 @@ void loop()
 	/*Serial.print((uint8_t)random(16));
 	Serial.print(" , ");
 	Serial.println((uint8_t)random(24));*/
-	uint8_t *food_x = &snake.Get_foodx();
-	uint8_t *food_y = &snake.Get_foody();
+	uint8_t* food_x = &snake.Get_foodx();
+	uint8_t* food_y = &snake.Get_foody();
 	*food_x = (uint8_t)random(16);
 	*food_y = (uint8_t)random(24);
 }
 
 bool check_food(void)
 {
-	node *snake_map = snake.Get_snake_map();
-	uint8_t *food_x = &snake.Get_foodx();
-	uint8_t *food_y = &snake.Get_foody();
-	byte *value = &(*food_x * COL + snake_map + *food_y)->val;
+	node* snake_map = snake.Get_snake_map();
+	uint8_t* food_x = &snake.Get_foodx();
+	uint8_t* food_y = &snake.Get_foody();
+	byte* value = &(*food_x * COL + snake_map + *food_y)->val;
 	if (*value != FOOD)
 	{
 		do
@@ -115,7 +119,7 @@ bool check_food(void)
 
 void print_to_Serial(void)
 {
-	node *snake_map = snake.Get_snake_map();
+	node* snake_map = snake.Get_snake_map();
 	for (int i = 0; i < ROW; i++)
 	{
 		for (int j = 0; j < COL; j++)

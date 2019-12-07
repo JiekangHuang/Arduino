@@ -26,15 +26,15 @@ private:
 public:
 	Snake(uint8_t startx = 10, uint8_t starty = 8);
 	~Snake();
-	bool is_move(chk_f, int &speed);
+	bool is_move(chk_f, int& speed);
 	void Set_cur_dir(uint8_t);
 	node* Get_snake_map();
 	void Set_foodxy(uint8_t*, uint8_t*);
 	void add_snake_len();
 	void check_food(chk_f);
 
-	uint8_t &Get_foodx();
-	uint8_t &Get_foody();
+	uint8_t& Get_foodx();
+	uint8_t& Get_foody();
 };
 
 Snake::Snake(uint8_t startx, uint8_t starty)
@@ -69,7 +69,7 @@ bool Snake::is_dead()
 	return false;
 }
 
-bool Snake::is_move(chk_f check_food, int &speed)
+bool Snake::is_move(chk_f check_food, int& speed)
 {
 	node* cur_node = (*(snake_map + head_x) + head_y);
 	switch (cur_node->dir)
@@ -94,8 +94,8 @@ bool Snake::is_move(chk_f check_food, int &speed)
 	//check eat
 	else if ((*(snake_map + head_x) + head_y)->val == FOOD)
 	{
-		speed -= 100;
-		speed <= 150 ? speed = 150 : NULL;
+		speed -= 20;
+		speed <= 200 ? speed = 200 : NULL;
 		(*(snake_map + head_x) + head_y)->val = SKE;
 		(*(snake_map + head_x) + head_y)->dir = cur_node->dir;
 		check_food();
@@ -106,7 +106,7 @@ bool Snake::is_move(chk_f check_food, int &speed)
 		swch((*(snake_map + head_x) + head_y)->val, (*(snake_map + tail_x) + tail_y)->val);
 		(*(snake_map + head_x) + head_y)->dir = cur_node->dir;
 
-		node* pre_tail_node = (*(snake_map + tail_x) + tail_y);
+		node * pre_tail_node = (*(snake_map + tail_x) + tail_y);
 		switch (pre_tail_node->dir)
 		{
 		case 1:
@@ -139,12 +139,12 @@ void Snake::Set_cur_dir(uint8_t dir)
 	(*(snake_map + head_x) + head_y)->dir = dir;
 }
 
-inline node* Snake::Get_snake_map()
+inline node * Snake::Get_snake_map()
 {
 	return *(snake_map + 0);
 }
 
-inline void Snake::Set_foodxy(uint8_t *food_x, uint8_t *food_y)
+inline void Snake::Set_foodxy(uint8_t * food_x, uint8_t * food_y)
 {
 	this->food_x = *food_x;
 	this->food_y = *food_y;
@@ -161,11 +161,11 @@ inline void Snake::check_food(chk_f check_food)
 		this->add_snake_len();
 }
 
-uint8_t &Snake::Get_foodx()
+uint8_t& Snake::Get_foodx()
 {
 	return this->food_x;
 }
-uint8_t &Snake::Get_foody()
+uint8_t& Snake::Get_foody()
 {
 	return this->food_y;
 }
