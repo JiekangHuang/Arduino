@@ -21,5 +21,8 @@
     <ClInclude Include="__vm\.ex1005_SEGx4.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="mage2560segx4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
