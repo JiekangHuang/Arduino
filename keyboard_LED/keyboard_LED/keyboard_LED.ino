@@ -5,23 +5,21 @@
 */
 #include <Keypad.h>
 
-const byte LED_PIN[] = { 6,7,8,9 };
+const byte LED_PIN[] = { 6, 7, 8, 9 };
 
 #define ROWS 4
 #define COLS 4
 
-uint8_t hexaKeys[ROWS][COLS] =
-{
-  {0x0F,0x0E,0x0D,0x0C},
-  {0x0B,0x03,0x06,0x09},
-  {0x0A,0x02,0x05,0x08},
-  {0x1A,0x01,0x04,0x07}
-};
+uint8_t hexaKeys[ROWS][COLS] = {
+	{0x0F, 0x0E, 0x0D, 0x0C},
+	{0x0B, 0x03, 0x06, 0x09},
+	{0x0A, 0x02, 0x05, 0x08},
+	{0x1A, 0x01, 0x04, 0x07} };
 
 byte rowPins[ROWS] = { 25, 24, 23, 22 };
 byte colPins[COLS] = { 29, 28, 27, 26 };
 
-Keypad customKeypad = Keypad(makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS);
+Keypad keypad = Keypad(makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS);
 
 void setup()
 {
@@ -39,7 +37,7 @@ void setup()
 void loop()
 {
 	//1.從鍵盤讀取字元
-	uint8_t customKey = customKeypad.getKey();
+	uint8_t customKey = keypad.getKey();
 	if (customKey)
 	{
 		//0x00例外處理
